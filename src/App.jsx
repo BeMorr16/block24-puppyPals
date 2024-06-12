@@ -13,8 +13,8 @@ function App() {
     newPup.name = "Sir Waddington's Brother";
     newPup.age = 7;
     const newList = [...puppies, newPup];
-    setPuppies(newList)
-    setIsButtonClicked(true)
+    setPuppies(newList);
+    setIsButtonClicked(true);
   }
   function removePuppy() {
     const newList = puppies.slice(0, -1);
@@ -25,41 +25,58 @@ function App() {
     setIsButtonClicked(false);
   }
 
-const featuredPup = puppies.find((pup)=> pup.id === featPupId)
+  const featuredPup = puppies.find((pup) => pup.id === featPupId);
   return (
     <>
       <div className="App">
         <div id="side">
           <div id="sep">
-              <h1 id="header">List of Pups</h1>
-        {puppies.map((puppy) => {
-          return (
-            <p
-              onClick={() => {setFeatPupId(puppy.id);}}
-              key={puppy.id}
-            >
-              {puppy.name}
-            </p>
-          );
-        })}
+            <h1 id="header">List of Pups</h1>
+            {puppies.map((puppy) => {
+              return (
+                <p
+                  onClick={() => {
+                    setFeatPupId(puppy.id);
+                  }}
+                  key={puppy.id}
+                >
+                  {puppy.name}
+                </p>
+              );
+            })}
           </div>
-        {featPupId && (
-        <div id="featPup">
-          <h2>{featuredPup.name}</h2>
-          <ul>
-            <li>Age: {featuredPup.age}</li>
-            <li>Email: {featuredPup.email}</li>
-          </ul>
+          {featPupId && (
+            <div id="featPup">
+              <h2>{featuredPup.name}</h2>
+              <ul>
+                <li>Age: {featuredPup.age}</li>
+                <li>Email: {featuredPup.email}</li>
+                <li>Cuteness: {featuredPup.isCute ? "Yes" : "No"}</li>
+                <li>
+                  Tricks:
+                  {featuredPup.tricks.length > 0 ? (
+                  <ul>
+                    {featuredPup.tricks.map((trick) => (
+                      <li key={trick.id}>{trick.title}</li>
+                    ))}
+                    </ul>
+                  ) : (
+                    <p>No tricks</p>
+                  )}
+                </li>
+              </ul>
             </div>
-          )} 
-          </div>
+          )}
+        </div>
         {!isButtonClicked && (
           <button onClick={addPuppy} className="addButton">
             Add Puppy
           </button>
         )}
         {isButtonClicked && (
-          <button onClick={removePuppy} className="removeButton">Undo</button>
+          <button onClick={removePuppy} className="removeButton">
+            Undo
+          </button>
         )}
       </div>
     </>
